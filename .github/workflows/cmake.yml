@@ -7,32 +7,39 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install tools
-        run: sudo add-apt-repository ppa:brandonsnider/cdrtools && sudo apt-get update -y && sudo apt-get install -y gnu-efi mkisofs
+        run: sudo apt-get update -y && sudo apt-get install -y genisoimage gnu-efi mtools ninja-build
       - name: Configure
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_VERBOSE_MAKEFILE=ON -DWITH_GOP=ON
+        run: cmake -B ${{github.workspace}}/build -G Ninja
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config ${{matrix.build-type}}
       - name: Upload artifacts
-        uses: 'actions/upload-artifact@v6'
+        uses: 'actions/upload-artifact@v7'
         with:
           if-no-files-found: error
-          name: hello-world-efi-${{ matrix.build-type }}
+          name: tetris-efi-${{ matrix.build-type }}
           path: |
-            ${{github.workspace}}/build/hello.efi
-            ${{github.workspace}}/build/hello.iso
+            ${{github.workspace}}/build/tetris.efi
+            ${{github.workspace}}/build/tetris.iso
       - name: Attest
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: |
-            ${{github.workspace}}/build/hello.efi
-            ${{github.workspace}}/build/hello.iso
-      - if: ${{ github.ref_type == 'tag' }}
+            ${{github.workspace}}/build/tetris.efi
+            ${{github.workspace}}/build/tetris.iso
+      - if: ${{ github.ref_type == 'tag' && matrix.build-type == 'Release' }}
+        name: Stage versioned release assets
+        run: |
+          cp build/tetris.efi build/tetris-efi-${{ github.ref_name }}.efi
+          cp build/tetris.iso build/tetris-efi-${{ github.ref_name }}.iso
+      - if: ${{ github.ref_type == 'tag' && matrix.build-type == 'Release' }}
         name: Upload package
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
+          draft: true
+          fail_on_unmatched_files: true
           files: |
-            ${{github.workspace}}/build/hello.efi
-            ${{github.workspace}}/build/hello.iso
+            ${{github.workspace}}/build/tetris-efi-${{ github.ref_name }}.efi
+            ${{github.workspace}}/build/tetris-efi-${{ github.ref_name }}.iso
     strategy:
       matrix:
         build-type: [Debug, Release]
@@ -44,6 +51,8 @@ name: Build
   push:
     branches:
       - master
+    tags:
+      - 'v*.*.*'
 permissions:
   attestations: write
   contents: write
