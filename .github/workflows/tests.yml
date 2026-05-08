@@ -7,18 +7,28 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install tools
-        run: pipx install cpp-coveralls && sudo add-apt-repository ppa:brandonsnider/cdrtools && sudo apt-get update -y && sudo apt-get install -y gnu-efi libcmocka-dev lcov mkisofs
+        run: |
+          pipx install cpp-coveralls
+          sudo apt-get update -y
+          sudo apt-get install -y genisoimage gnu-efi libcmocka-dev lcov mtools
       - name: Configure
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_VERBOSE_MAKEFILE=ON -DWITH_GOP=ON -DWITH_TESTS=ON
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_TESTS=ON
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config ${{matrix.build-type}}
       - name: Run tests
-        run: ctest --test-dir ${{github.workspace}}/build
+        run: ctest --test-dir ${{github.workspace}}/build --output-on-failure
       - name: Generate coverage information
-        run: geninfo '--exclude=*/test.c' -b ${{github.workspace}} -o coverage1.info ${{github.workspace}}/build/CMakeFiles/general_tests.dir
+        run: |
+          geninfo '--exclude=*/tests/*' -b ${{github.workspace}} -o coverage.info \
+            ${{github.workspace}}/build/tests/CMakeFiles/test_piece.dir \
+            ${{github.workspace}}/build/tests/CMakeFiles/test_game.dir \
+            ${{github.workspace}}/build/tests/CMakeFiles/test_font.dir \
+            ${{github.workspace}}/build/tests/CMakeFiles/test_render.dir \
+            ${{github.workspace}}/build/tests/CMakeFiles/test_main.dir \
+            ${{github.workspace}}/build/tests/CMakeFiles/test_loop.dir
       - if: matrix.build-type == 'Debug'
         name: Coveralls
-        run: coveralls -i main.c
+        run: coveralls -i src
     strategy:
       matrix:
         build-type: [Debug, Release]
