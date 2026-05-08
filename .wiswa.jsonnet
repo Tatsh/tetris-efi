@@ -2,20 +2,21 @@ local utils = import 'utils.libjsonnet';
 
 {
   project_type: 'c',
-  project_name: 'hello-world-efi',
-  version: '0.0.2',
-  description: 'Very simple demonstration of UEFI facilities, building with CMake, and testing with CMocka.',
-  keywords: ['efi', 'hello-world', 'uefi'],
+  project_name: 'tetris-efi',
+  version: '0.0.0',
+  description: 'A Tetris clone that runs as a UEFI application.',
+  keywords: ['efi', 'game', 'tetris', 'uefi'],
   want_main: false,
   want_codeql: false,
-  want_tests: false,
+  want_tests: true,
+  want_winget: false,
   copilot+: {
-    intro: 'This is a demonstration of UEFI code, building with CMake, and testing with CMocka.',
+    intro: 'This is a Tetris game written as a UEFI application, built with CMake and tested with CMocka.',
   },
   package_json+: {
     scripts+: {
-      'check-formatting': "clang-format -n *.c && prettier -c . && markdownlint-cli2",
-      format: 'clang-format -i *.c && prettier -w .',
+      'check-formatting': "clang-format -n src/*.c src/*.h tests/*.c && prettier -c . && markdownlint-cli2",
+      format: 'clang-format -i src/*.c src/*.h tests/*.c && prettier -w .',
     },
   },
   vscode+: {
@@ -23,13 +24,14 @@ local utils = import 'utils.libjsonnet';
       configurations: [
         {
           cStandard: 'gnu23',
-          compilerArgs: ['-fno-stack-protector', '-fpic', '-fshort-wchar', '-mno-red-zone', '-Wall'],
+          compilerArgs: ['-Wall', '-fno-stack-protector', '-fpic', '-fshort-wchar', '-mno-red-zone'],
           compilerPath: '/usr/bin/gcc',
           cppStandard: 'gnu++23',
           defines: ['EFI_FUNCTION_WRAPPER', 'GOP=1'],
           includePath: [
             '${default}',
             '${workspaceFolder}',
+            '${workspaceFolder}/src',
             '/usr/include/efi/protocol',
             '/usr/include/efi/x86_64',
           ],
@@ -41,8 +43,15 @@ local utils = import 'utils.libjsonnet';
       configurations: [
         {
           cwd: '${workspaceFolder}/build',
-          name: 'General tests',
-          program: '${workspaceFolder}/build/general_tests',
+          name: 'test_piece',
+          program: '${workspaceFolder}/build/tests/test_piece',
+          request: 'launch',
+          type: 'cppdbg',
+        },
+        {
+          cwd: '${workspaceFolder}/build',
+          name: 'test_game',
+          program: '${workspaceFolder}/build/tests/test_game',
           request: 'launch',
           type: 'cppdbg',
         },
@@ -54,7 +63,7 @@ local utils = import 'utils.libjsonnet';
         '/usr/include/efi/protocol',
         '/usr/include/efi/x86_64',
       ],
-      'cmake.configureArgs': ['-DWITH_GOP=ON', '-DWITH_TESTS=ON'],
+      'cmake.configureArgs': ['-DBUILD_TESTS=ON'],
     },
   },
 }
