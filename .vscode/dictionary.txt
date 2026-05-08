@@ -2,7 +2,6 @@
 argn
 blits
 bootx
-brandonsnider
 bsky
 bsymbolic
 buildsystems
@@ -16,9 +15,7 @@ cppdbg
 ctest
 dashcam
 dbuild
-dcmake
 docstrings
-dwith
 dynsym
 efiboot
 eltorito
