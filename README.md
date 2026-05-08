@@ -1,55 +1,93 @@
-# Hello World for EFI
+# Tetris for UEFI
+
+<!-- WISWA-GENERATED-README:START -->
 
 [![C](https://img.shields.io/badge/C-00599C?logo=c)](<https://en.wikipedia.org/wiki/C_(programming_language)>)
-[![GitHub tag (with filter)](https://img.shields.io/github/v/tag/Tatsh/hello-world-efi)](https://github.com/Tatsh/hello-world-efi/tags)
-[![License](https://img.shields.io/github/license/Tatsh/hello-world-efi)](https://github.com/Tatsh/hello-world-efi/blob/master/LICENSE.txt)
-[![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/hello-world-efi/v0.0.2/master)](https://github.com/Tatsh/hello-world-efi/compare/v0.0.2...master)
-[![QA](https://github.com/Tatsh/hello-world-efi/actions/workflows/qa.yml/badge.svg)](https://github.com/Tatsh/hello-world-efi/actions/workflows/qa.yml)
-[![Tests](https://github.com/Tatsh/hello-world-efi/actions/workflows/tests.yml/badge.svg)](https://github.com/Tatsh/hello-world-efi/actions/workflows/tests.yml)
-[![Coverage Status](https://coveralls.io/repos/github/Tatsh/hello-world-efi/badge.svg?branch=master)](https://coveralls.io/github/Tatsh/hello-world-efi?branch=master)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-blue?logo=dependabot)](https://github.com/dependabot)
-[![GitHub Pages](https://github.com/Tatsh/hello-world-efi/actions/workflows/pages/pages-build-deployment/badge.svg)](https://tatsh.github.io/hello-world-efi/)
-[![Stargazers](https://img.shields.io/github/stars/Tatsh/hello-world-efi?logo=github&style=flat)](https://github.com/Tatsh/hello-world-efi/stargazers)
 [![CMake](https://img.shields.io/badge/CMake-6E6E6E?logo=cmake)](https://cmake.org/)
-[![Prettier](https://img.shields.io/badge/Prettier-enabled-black?logo=prettier)](https://prettier.io/)
 
-[![@Tatsh](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpublic.api.bsky.app%2Fxrpc%2Fapp.bsky.actor.getProfile%2F%3Factor=did%3Aplc%3Auq42idtvuccnmtl57nsucz72&query=%24.followersCount&label=Follow+%40Tatsh&logo=bluesky&style=social)](https://bsky.app/profile/Tatsh.bsky.social)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Tatsh-black?logo=buymeacoffee)](https://buymeacoffee.com/Tatsh)
-[![Libera.Chat](https://img.shields.io/badge/Libera.Chat-Tatsh-black?logo=liberadotchat)](irc://irc.libera.chat/Tatsh)
-[![Mastodon Follow](https://img.shields.io/mastodon/follow/109370961877277568?domain=hostux.social&style=social)](https://hostux.social/@Tatsh)
-[![Patreon](https://img.shields.io/badge/Patreon-Tatsh2-F96854?logo=patreon)](https://www.patreon.com/Tatsh2)
+<!-- WISWA-GENERATED-README:STOP -->
 
-This is based on Roderick W. Smith's
-[Creating a "Hello, World" Program](https://www.rodsbooks.com/efi-programming/hello.html). The
-primary difference is the use of CMake as the build system.
+A Tetris clone that runs as a UEFI application. It uses the Graphics Output Protocol (GOP) at the
+firmware's current mode, draws coloured tetrominoes with a back-buffered + Blt render path,
+includes a ghost-piece preview, and supports hold (store/recall). On game over you can start a
+new game or quit back to the firmware.
+
+![Screenshot](screenshot.png)
+
+Based on [hello-world-efi](https://github.com/Tatsh/hello-world-efi) and Roderick W. Smith's
+[EFI programming](https://www.rodsbooks.com/efi-programming/hello.html) examples.
+
+## Features
+
+- **GOP rendering** - Double-buffered to RAM, pushed to the framebuffer with a single `Blt`, so
+  no flicker.
+- **Coloured tetrominoes** - I (cyan), O (yellow), T (purple), S (green), Z (red), J (blue),
+  L (orange).
+- **Ghost piece** - A dimmed preview of where the current piece will land on a hard drop.
+- **Hold (store/recall)** - Press **C** to store the current piece or swap with the held piece
+  (once per drop).
+- **In-game UI** - Score, version + project URL, and on-screen controls hint, all drawn with a
+  built-in 5x5 bitmap font.
+- **Game over** - **N** for a new game, **Q** to quit to firmware.
+
+## Controls
+
+Arrow keys move; the four actions also have keyboard alternatives.
+
+| Action            | Primary         | Alternates  |
+| ----------------- | --------------- | ----------- |
+| Move left         | Left arrow      | `H`         |
+| Move right        | Right arrow     | `L`         |
+| Soft drop         | Down arrow      | `J`         |
+| Hard drop         | Up arrow, Space | `K`         |
+| Rotate left (CCW) | `Z`             | `A`         |
+| Rotate right (CW) | `X`             | `S`         |
+| Hold              | `C`             | _none_      |
 
 ## How to build
 
-Optionally install [cdrtools](https://sourceforge.net/projects/cdrtools/) so an ISO can be
-generated.
+Required tools: `cmake`, GNU EFI, `mtools` (`mformat`, `mmd`, `mcopy`), and an ISO 9660 builder
+(`xorrisofs`, `mkisofs`, or `genisoimage`).
 
 1. Have `cmake` in your PATH.
-2. Make sure GNU EFI is installed on your system.
-3. Clone this repository and have a terminal in the root of it.
-4. `mkdir build`
-5. `cd build`
-6. `cmake -DWITH_GOP=1 -DWITH_TESTS=1 ..` (or `cmake -G Ninja ..` if you have Ninja installed).
-7. `make` (or `ninja` if you used `-G Ninja` in the previous step)
+2. Install GNU EFI on your system.
+3. Clone this repository and open a terminal in its root.
+4. `mkdir build && cd build`
+5. `cmake -G Ninja ..` (or `cmake ..` for Make)
+6. `ninja` (or `make`)
 
-If `hello.iso` was generated, use it on an UEFI system that has a shell (many do not) or emulator
-such as VirtualBox.
+Output: `tetris.efi` and a minimal UEFI-bootable `tetris.iso` (~1.4 MB). The ISO contains a
+single FAT EFI System Partition image carrying `\EFI\BOOT\BOOTX64.EFI`, exposed via El Torito
+with platform ID 0xEF. UEFI firmware loads that file directly — no GRUB or other bootloader.
 
-## How to run in VirtualBox
+## Project layout
 
-1. Set up a new VM. It does not matter too much what settings you pick at this point.
-2. In the VM settings, under _System_, check _Enable EFI (special OSes only)_.
-3. For storage, 'insert' the `hello.iso` file.
-4. Boot up the VM. You will see the EFI shell start to boot.
-5. When the shell shows a prompt, type `fs0:`
-6. Type `hello.efi`. You should see _Hello, world!_ and be returned to a prompt.
+- `src/` - game code split into `font.{c,h}`, `piece.{c,h}`, `game.{c,h}`, `loop.{c,h}`,
+  `render.{c,h}`, plus `main.c` (the EFI entry point).
+- `tests/` - cmocka-based host tests.
+- `CMakeLists.txt` - top-level build orchestration (compile, link `tetris.efi`, build the ISO,
+  QEMU launcher target).
+
+## How to run in QEMU
+
+From the build directory:
+
+```sh
+ninja run-qemu      # or `make run-qemu`
+```
+
+The `run-qemu` CMake target auto-detects an installed OVMF firmware and boots `tetris.iso`.
 
 ## How to run tests
 
-In the `build` directory, run `ctest` or `./general_tests`. These run on the host operating system,
-not in the EFI environment. `test.c` demonstrates how to mock the gnu-efilib with CMocka.
+Configure with `-DBUILD_TESTS=ON` and run `ctest`:
+
+```sh
+cmake -G Ninja -DBUILD_TESTS=ON ..
+ninja
+ctest --output-on-failure
+```
+
+Tests live in `tests/` and use [cmocka](https://cmocka.org/). Each test executable compiles the
+relevant `src/*.c` files directly so cmocka `--wrap` can intercept gnu-efi calls without
+linking the full `libefi`/`libgnuefi` runtime. Tests can only be built with GCC.

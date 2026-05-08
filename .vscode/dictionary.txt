@@ -43,6 +43,8 @@ jsonschema
 lefi
 lgnuefi
 libcmocka
+libefi
+libgnuefi
 libera
 libjsonnet
 libname
