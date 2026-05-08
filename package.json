@@ -1,7 +1,7 @@
 {
   "_wiswa": {
     "commandLine": "wiswa",
-    "lastRun": "2026-05-08T05:30:34Z",
+    "lastRun": "2026-05-08T06:38:56Z",
     "version": "3d1ef61"
   },
   "contributors": ["Andrew Udvare <audvare@gmail.com>"],
@@ -109,10 +109,10 @@
   },
   "scripts": {
     "build": "cmake --preset=default -DBUILD_DOCS=ON && cmake --build build",
-    "check-formatting": "clang-format -n src/*.c src/*.h tests/*.c && prettier -c . && markdownlint-cli2",
+    "check-formatting": "clang-format --dry-run src/*.c src/*.h tests/*.c && prettier --check . && markdownlint-cli2 --config package.json --configPointer /markdownlint-cli2",
     "check-spelling": "cspell --no-progress .",
     "dict:update": "rm -f .vscode/dictionary.txt && cspell lint --no-progress --no-summary --unique --words-only | tr '[:upper:]' '[:lower:]' | sort -u > .vscode/dictionary.txt",
-    "format": "clang-format -i src/*.c src/*.h tests/*.c && prettier -w .",
+    "format": "clang-format -i src/*.c src/*.h tests/*.c && prettier --write . && markdownlint-cli2 --config package.json --configPointer /markdownlint-cli2 --fix",
     "qa": "yarn check-spelling && yarn check-formatting"
   },
   "version": "0.0.0"

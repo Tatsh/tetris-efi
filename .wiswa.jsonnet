@@ -11,12 +11,7 @@ local utils = import 'utils.libjsonnet';
   want_codeql: false,
   want_tests: false, // Handled here not by Wiswa.
   want_winget: false,
-  package_json+: {
-    scripts+: {
-      'check-formatting': "clang-format -n src/*.c src/*.h tests/*.c && prettier -c . && markdownlint-cli2",
-      format: 'clang-format -i src/*.c src/*.h tests/*.c && prettier -w .',
-    },
-  },
+  clang_format_args: 'src/*.c src/*.h tests/*.c',
   vscode+: {
     c_cpp+: {
       configurations: [

@@ -7,6 +7,7 @@
 [![License](https://img.shields.io/github/license/Tatsh/tetris-efi)](https://github.com/Tatsh/tetris-efi/blob/master/LICENSE.txt)
 [![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/tetris-efi/v0.0.0/master)](https://github.com/Tatsh/tetris-efi/compare/v0.0.0...master)
 [![Dependabot](https://img.shields.io/badge/Dependabot-enabled-blue?logo=dependabot)](https://github.com/dependabot)
+[![pages-build-deployment](https://github.com/Tatsh/tetris-efi/actions/workflows/pages/pages-build-deployment/badge.svg)](https://tatsh.github.io/tetris-efi/)
 [![Stargazers](https://img.shields.io/github/stars/Tatsh/tetris-efi?logo=github&style=flat)](https://github.com/Tatsh/tetris-efi/stargazers)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 [![CMake](https://img.shields.io/badge/CMake-6E6E6E?logo=cmake)](https://cmake.org/)
