@@ -62,7 +62,7 @@ Arrow keys move; the four actions also have keyboard alternatives.
 ## How to build
 
 Required tools: `cmake`, GNU EFI, `mtools` (`mformat`, `mmd`, `mcopy`), and an ISO 9660 builder
-(`xorrisofs`, `mkisofs`, or `genisoimage`).
+that supports `-eltorito-platform efi` (`xorrisofs` from `xorriso`, or `mkisofs` from cdrtools).
 
 1. Have `cmake` in your PATH.
 2. Install GNU EFI on your system.

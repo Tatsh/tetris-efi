@@ -10,7 +10,7 @@ jobs:
         run: |
           pipx install cpp-coveralls
           sudo apt-get update -y
-          sudo apt-get install -y genisoimage gnu-efi libcmocka-dev lcov mtools ninja-build
+          sudo apt-get install -y gnu-efi libcmocka-dev lcov mtools ninja-build xorriso
       - name: Configure
         run: cmake -B ${{github.workspace}}/build -G Ninja -DBUILD_TESTS=ON
       - name: Build
