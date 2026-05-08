@@ -4,7 +4,7 @@ local utils = import 'utils.libjsonnet';
   uses_user_defaults: true,
   project_type: 'c',
   project_name: 'tetris-efi',
-  version: '0.0.0',
+  version: '0.0.1',
   description: 'A Tetris clone that runs as a UEFI application.',
   keywords: ['efi', 'game', 'tetris', 'uefi'],
   want_main: false,

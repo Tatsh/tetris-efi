@@ -4,7 +4,7 @@ project(
   DESCRIPTION "A Tetris clone that runs as a UEFI application."
   HOMEPAGE_URL "https://github.com/Tatsh/tetris-efi"
   LANGUAGES C
-  VERSION 0.0.0)
+  VERSION 0.0.1)
 
 option(BUILD_TESTS "Build tests." OFF)
 
