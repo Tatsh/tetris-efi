@@ -90,6 +90,7 @@ wchar
 winget
 wiswa
 wiswa's
+xorriso
 xorrisofs
 yarnrc
 znocombreloc
