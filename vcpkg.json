@@ -1,10 +1,10 @@
 {
   "dependencies": [],
-  "description": "Very simple demonstration of UEFI facilities, building with CMake, and testing with CMocka.",
-  "documentation": "https://hello-world-efi.readthedocs.org",
-  "homepage": "https://tatsh.github.io/hello-world-efi/",
+  "description": "A Tetris clone that runs as a UEFI application.",
+  "documentation": "https://tetris-efi.readthedocs.org",
+  "homepage": "https://tatsh.github.io/tetris-efi/",
   "license": "MIT",
   "maintainers": ["Andrew Udvare <audvare@gmail.com>"],
-  "name": "hello-world-efi",
-  "version": "0.0.2"
+  "name": "tetris-efi",
+  "version": "0.0.0"
 }

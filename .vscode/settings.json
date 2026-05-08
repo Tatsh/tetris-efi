@@ -21,7 +21,7 @@
     "editor.tabSize": 4
   },
   "cSpell.enabled": true,
-  "cmake.configureArgs": ["-DWITH_GOP=ON", "-DWITH_TESTS=ON"],
+  "cmake.configureArgs": ["-DBUILD_TESTS=ON"],
   "editor.codeActionsOnSave": {
     "source.fixAll": "always"
   },
@@ -33,6 +33,9 @@
   "editor.rulers": [100],
   "editor.tabSize": 2,
   "editor.wordWrapColumn": 100,
+  "files.associations": {
+    "*.json.dist": "json"
+  },
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,

@@ -1,4 +1,9 @@
 {
+  "_wiswa": {
+    "commandLine": "wiswa",
+    "lastRun": "2026-05-08T04:47:42Z",
+    "version": "3d1ef61"
+  },
   "contributors": ["Andrew Udvare <audvare@gmail.com>"],
   "cspell": {
     "cache": {
@@ -14,7 +19,7 @@
       "*": true
     },
     "enableGlobDot": true,
-    "files": ["*"],
+    "files": ["**"],
     "ignorePaths": [
       "*.1",
       "*.har",
@@ -34,19 +39,19 @@
     ],
     "useGitignore": true
   },
-  "description": "Very simple demonstration of UEFI facilities, building with CMake, and testing with CMocka.",
+  "description": "A Tetris clone that runs as a UEFI application.",
   "devDependencies": {
     "@prettier/plugin-xml": "^3.4.2",
-    "cspell": "^9.7.0",
-    "markdownlint-cli2": "^0.21.0",
-    "prettier": "^3.8.1",
+    "cspell": "^10.0.0",
+    "markdownlint-cli2": "^0.22.1",
+    "prettier": "^3.8.3",
     "prettier-plugin-ini": "^1.3.0",
     "prettier-plugin-sort-json": "^4.2.0",
     "prettier-plugin-toml": "^2.0.6"
   },
   "files": ["LICENSE.txt", "README.md"],
-  "homepage": "https://tatsh.github.io/hello-world-efi/",
-  "keywords": ["efi", "hello-world", "uefi"],
+  "homepage": "https://tatsh.github.io/tetris-efi/",
+  "keywords": ["efi", "game", "tetris", "uefi"],
   "license": "MIT",
   "markdownlint-cli2": {
     "config": {
@@ -68,15 +73,15 @@
     "noBanner": true,
     "showFound": true
   },
-  "name": "hello-world-efi",
-  "packageManager": "yarn@4.12.0",
+  "name": "tetris-efi",
+  "packageManager": "yarn@4.14.1",
   "prettier": {
     "endOfLine": "lf",
     "iniSpaceAroundEquals": true,
     "jsonRecursiveSort": true,
     "overrides": [
       {
-        "files": ["package.json"],
+        "files": ["*.json.dist", "package.json"],
         "options": {
           "parser": "json"
         }
@@ -100,14 +105,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Tatsh/hello-world-efi.git"
+    "url": "git+https://github.com/Tatsh/tetris-efi.git"
   },
   "scripts": {
     "build": "cmake --preset=default -DBUILD_DOCS=ON && cmake --build build",
-    "check-formatting": "clang-format -n *.c && prettier -c . && markdownlint-cli2",
+    "check-formatting": "clang-format -n src/*.c src/*.h tests/*.c && prettier -c . && markdownlint-cli2",
     "check-spelling": "cspell --no-progress .",
-    "format": "clang-format -i *.c && prettier -w .",
+    "dict:update": "rm -f .vscode/dictionary.txt && cspell lint --no-progress --no-summary --unique --words-only | tr '[:upper:]' '[:lower:]' | sort -u > .vscode/dictionary.txt",
+    "format": "clang-format -i src/*.c src/*.h tests/*.c && prettier -w .",
     "qa": "yarn check-spelling && yarn check-formatting"
   },
-  "version": "0.0.2"
+  "version": "0.0.0"
 }

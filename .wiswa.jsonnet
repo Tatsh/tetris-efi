@@ -1,6 +1,7 @@
 local utils = import 'utils.libjsonnet';
 
 {
+  uses_user_defaults: true,
   project_type: 'c',
   project_name: 'tetris-efi',
   version: '0.0.0',
@@ -8,11 +9,8 @@ local utils = import 'utils.libjsonnet';
   keywords: ['efi', 'game', 'tetris', 'uefi'],
   want_main: false,
   want_codeql: false,
-  want_tests: true,
+  want_tests: false, // Handled here not by Wiswa.
   want_winget: false,
-  copilot+: {
-    intro: 'This is a Tetris game written as a UEFI application, built with CMake and tested with CMocka.',
-  },
   package_json+: {
     scripts+: {
       'check-formatting': "clang-format -n src/*.c src/*.h tests/*.c && prettier -c . && markdownlint-cli2",
