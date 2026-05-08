@@ -31,6 +31,9 @@ static int reset_counters(void **state) {
 static void test_glyph_for_known_chars(void **state) {
     (void)state;
     assert_non_null(glyph_for('A'));
+    assert_non_null(glyph_for('N'));
+    assert_non_null(glyph_for('Q'));
+    assert_non_null(glyph_for('W'));
     assert_non_null(glyph_for('Z'));
     assert_non_null(glyph_for('0'));
     assert_non_null(glyph_for('9'));

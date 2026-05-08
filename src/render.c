@@ -270,6 +270,41 @@ void render(void) {
         UINTN by = board_origin_y + (bh - box_h) / 2;
         fill_rect(bx, by, box_w, box_h, 0x00202030);
         fill_rect(bx + 2, by + 2, box_w - 4, box_h - 4, 0x00404050);
+
+        UINTN inner_x = bx + 2;
+        UINTN inner_w = box_w - 4;
+        UINTN max_text_w = (inner_w > 8) ? inner_w - 8 : inner_w;
+
+        const char *title = "GAME OVER";
+        const char *new_game = "N: NEW GAME";
+        const char *quit = "Q: QUIT";
+
+        UINTN title_scale = font_scale + 1;
+        while (title_scale > 1 && text_width(title, title_scale) > max_text_w) {
+            title_scale--;
+        }
+
+        UINTN sub_scale = font_scale;
+        while (sub_scale > 1 && text_width(new_game, sub_scale) > max_text_w) {
+            sub_scale--;
+        }
+
+        UINTN title_h = 5 * title_scale;
+        UINTN sub_h = 5 * sub_scale;
+        UINTN sub_gap = 3 * sub_scale;
+        UINTN block_h = title_h + 4 * title_scale + sub_h + sub_gap + sub_h;
+        UINTN start_y = by + (box_h - block_h) / 2;
+
+        UINTN title_x = inner_x + (inner_w - text_width(title, title_scale)) / 2;
+        draw_text(title_x, start_y, title_scale, title, 0x00FFFFFF);
+
+        UINTN new_y = start_y + title_h + 4 * title_scale;
+        UINTN new_x = inner_x + (inner_w - text_width(new_game, sub_scale)) / 2;
+        draw_text(new_x, new_y, sub_scale, new_game, 0x00E0E0E0);
+
+        UINTN quit_y = new_y + sub_h + sub_gap;
+        UINTN quit_x = inner_x + (inner_w - text_width(quit, sub_scale)) / 2;
+        draw_text(quit_x, quit_y, sub_scale, quit, 0x00E0E0E0);
     }
 
     // Controls hint along the bottom. Scale shrinks if the line wouldn't fit.

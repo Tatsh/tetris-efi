@@ -97,10 +97,14 @@ const UINT8 *glyph_for(char c) {
         return FONT_L;
     case 'M':
         return FONT_M;
+    case 'N':
+        return FONT_N;
     case 'O':
         return FONT_O;
     case 'P':
         return FONT_P;
+    case 'Q':
+        return FONT_Q;
     case 'R':
         return FONT_R;
     case 'S':
@@ -111,6 +115,8 @@ const UINT8 *glyph_for(char c) {
         return FONT_U;
     case 'V':
         return FONT_V;
+    case 'W':
+        return FONT_W;
     case 'X':
         return FONT_X;
     case 'Z':

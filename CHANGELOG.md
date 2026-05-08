@@ -9,6 +9,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- The game-over overlay now shows the "GAME OVER" title along with prompts for starting a new game
+  (`N`) and quitting to firmware (`Q`); previously the panel was rendered as an empty rectangle.
+
 ## [0.0.1] - 2025-00-00
 
 First version.
