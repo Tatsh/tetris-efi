@@ -24,6 +24,7 @@ efiboot
 eltorito
 emul
 endfunction
+esac
 esbenp
 foxundermoon
 fpic
@@ -81,6 +82,7 @@ tetris
 tetromino
 tetrominoes
 torito
+tostring
 udvare
 vendored
 venv
