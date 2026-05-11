@@ -51,7 +51,6 @@ mktemp
 mtools
 mypy
 nostdlib
-npmjs
 objcopy
 objs
 oneline
@@ -59,6 +58,7 @@ ovmf
 pipx
 preapproved
 pylock
+pyproject
 rect
 reflow
 regen
@@ -81,12 +81,15 @@ tetrominoes
 torito
 tostring
 udvare
+undraft
+undrafted
 vendored
 venv
 wchar
 winget
 wiswa
 wiswa's
+worktree
 xorriso
 xorrisofs
 yarnrc

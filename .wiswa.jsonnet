@@ -6,6 +6,16 @@ local utils = import 'utils.libjsonnet';
   project_name: 'tetris-efi',
   version: '0.0.1',
   description: 'A Tetris clone that runs as a UEFI application.',
+  custom_project_badges: [
+    {
+      anchor: '[![Tests](https://github.com/Tatsh/tetris-efi/actions/workflows/tests.yml/badge.svg)]',
+      href: 'https://github.com/Tatsh/tetris-efi/actions/workflows/tests.yml',
+    },
+    {
+      anchor: '[![Coverage Status](https://coveralls.io/repos/github/Tatsh/tetris-efi/badge.svg?branch=master)]',
+      href: 'https://coveralls.io/github/Tatsh/tetris-efi?branch=master',
+    },
+  ],
   keywords: ['efi', 'game', 'tetris', 'uefi'],
   want_main: false,
   want_codeql: false,
