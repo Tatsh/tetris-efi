@@ -32,6 +32,7 @@ genisoimage
 ggdb
 gmock
 gnuefi
+handoff
 iwyu
 jinja
 jsonnet
@@ -57,6 +58,7 @@ oneline
 ovmf
 pipx
 preapproved
+pyinstaller
 pylock
 pyproject
 rect
@@ -73,6 +75,7 @@ shellcheck
 shellformat
 snapcraft
 softprops
+statusline
 strequal
 tatsh
 tetris
@@ -93,4 +96,5 @@ worktree
 xorriso
 xorrisofs
 yarnrc
+zizmor
 znocombreloc
