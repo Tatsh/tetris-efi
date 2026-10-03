@@ -1,4 +1,3 @@
-Ångström
 argn
 blits
 bootx
@@ -9,7 +8,6 @@ cdrom
 cdrtools
 chainloaded
 cmocka
-cooldown
 coveragerc
 cppdbg
 ctest
@@ -51,7 +49,9 @@ mkisofs
 mktemp
 mtools
 mypy
+noone
 nostdlib
+numpydoc
 objcopy
 objs
 oneline
@@ -74,7 +74,6 @@ sdata
 shellcheck
 shellformat
 snapcraft
-softprops
 statusline
 strequal
 tatsh
@@ -89,12 +88,13 @@ undrafted
 vendored
 venv
 wchar
+werror
 winget
 wiswa
 wiswa's
-worktree
 xorriso
 xorrisofs
 yarnrc
 zizmor
 znocombreloc
+Ångström
