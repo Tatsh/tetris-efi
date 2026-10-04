@@ -70,6 +70,7 @@ reloc
 ripgreprc
 rodata
 rparen
+sbclaude
 schemafile
 sdata
 shellcheck
