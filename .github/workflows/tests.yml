@@ -1,8 +1,14 @@
+concurrency:
+  cancel-in-progress: true
+  group: '${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}'
 jobs:
   test:
     env:
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+    name: 'Tests'
+    permissions:
+      contents: 'read'
     runs-on: 'ubuntu-latest'
     steps:
       - uses: 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
@@ -14,20 +20,22 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y gnu-efi libcmocka-dev lcov mtools ninja-build xorriso
       - name: Configure
-        run: cmake -B ${{github.workspace}}/build -G Ninja -DBUILD_TESTS=ON
-      - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{matrix.build-type}}
+        run: cmake -B "${GITHUB_WORKSPACE}/build" -G Ninja -DBUILD_TESTS=ON
+      - env:
+          BUILD_TYPE: '${{ matrix.build-type }}'
+        name: Build
+        run: cmake --build "${GITHUB_WORKSPACE}/build" --config "${BUILD_TYPE}"
       - name: Run tests
-        run: ctest --test-dir ${{github.workspace}}/build --output-on-failure
+        run: ctest --test-dir "${GITHUB_WORKSPACE}/build" --output-on-failure
       - name: Generate coverage information
         run: |
-          geninfo '--exclude=*/tests/*' -b ${{github.workspace}} -o coverage.info \
-            ${{github.workspace}}/build/tests/CMakeFiles/test_piece.dir \
-            ${{github.workspace}}/build/tests/CMakeFiles/test_game.dir \
-            ${{github.workspace}}/build/tests/CMakeFiles/test_font.dir \
-            ${{github.workspace}}/build/tests/CMakeFiles/test_render.dir \
-            ${{github.workspace}}/build/tests/CMakeFiles/test_main.dir \
-            ${{github.workspace}}/build/tests/CMakeFiles/test_loop.dir
+          geninfo '--exclude=*/tests/*' -b "${GITHUB_WORKSPACE}" -o coverage.info \
+            "${GITHUB_WORKSPACE}/build/tests/CMakeFiles/test_piece.dir" \
+            "${GITHUB_WORKSPACE}/build/tests/CMakeFiles/test_game.dir" \
+            "${GITHUB_WORKSPACE}/build/tests/CMakeFiles/test_font.dir" \
+            "${GITHUB_WORKSPACE}/build/tests/CMakeFiles/test_render.dir" \
+            "${GITHUB_WORKSPACE}/build/tests/CMakeFiles/test_main.dir" \
+            "${GITHUB_WORKSPACE}/build/tests/CMakeFiles/test_loop.dir"
       - if: matrix.build-type == 'Debug'
         name: Coveralls
         run: coveralls -i src
@@ -42,5 +50,4 @@ name: 'Tests'
   push:
     branches:
       - 'master'
-permissions:
-  contents: 'read'
+permissions: {}
