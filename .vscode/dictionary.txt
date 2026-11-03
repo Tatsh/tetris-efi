@@ -62,6 +62,7 @@ objs
 oneline
 ovmf
 pathlib
+pipefail
 pipx
 preapproved
 pyinstaller
