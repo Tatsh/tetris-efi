@@ -1,3 +1,4 @@
+analyzer
 argn
 blits
 bootx
@@ -17,6 +18,7 @@ dcmake
 docstrings
 dynsym
 efiboot
+elif
 eltorito
 emul
 endfunction
@@ -32,6 +34,7 @@ ggdb
 gmock
 gnuefi
 handoff
+iterdir
 iwyu
 jinja
 jsonnet
@@ -50,6 +53,7 @@ mkisofs
 mktemp
 mtools
 mypy
+nojekyll
 noone
 nostdlib
 numpydoc
@@ -57,6 +61,7 @@ objcopy
 objs
 oneline
 ovmf
+pathlib
 pipx
 preapproved
 pyinstaller

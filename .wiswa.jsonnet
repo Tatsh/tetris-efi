@@ -26,7 +26,7 @@ local utils = import 'utils.libjsonnet';
       workflow_file: 'codeql-actions.yml',
     },
   },
-  want_tests: false, // Handled here not by Wiswa.
+  want_tests: false,  // Handled here not by Wiswa.
   want_winget: false,
   clang_format_args: 'src/*.c src/*.h tests/*.c',
   vscode+: {
@@ -76,4 +76,10 @@ local utils = import 'utils.libjsonnet';
       'cmake.configureArgs': ['-DBUILD_TESTS=ON'],
     },
   },
+}
++ {
+  want_scan_build: true,
+  github+: { workflows+: {
+    scan_build+: import '.wiswa-scan-build.jsonnet',
+  } },
 }
