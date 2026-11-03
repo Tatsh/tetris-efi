@@ -18,7 +18,14 @@ local utils = import 'utils.libjsonnet';
   ],
   keywords: ['efi', 'game', 'tetris', 'uefi'],
   want_main: false,
-  want_codeql: false,
+  want_codeql: true,
+  github+: {
+    codeql+: {
+      languages: ['actions'],
+      runs_on: 'ubuntu-latest',
+      workflow_file: 'codeql-actions.yml',
+    },
+  },
   want_tests: false, // Handled here not by Wiswa.
   want_winget: false,
   clang_format_args: 'src/*.c src/*.h tests/*.c',
