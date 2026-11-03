@@ -9,6 +9,7 @@ cdrom
 cdrtools
 chainloaded
 cmocka
+copytree
 coveragerc
 cppdbg
 ctest
@@ -34,7 +35,6 @@ ggdb
 gmock
 gnuefi
 handoff
-iterdir
 iwyu
 jinja
 jsonnet
@@ -74,6 +74,7 @@ regen
 rela
 reloc
 ripgreprc
+rmtree
 rodata
 rparen
 sbclaude
@@ -81,6 +82,7 @@ schemafile
 sdata
 shellcheck
 shellformat
+shutil
 snapcraft
 statusline
 strequal
